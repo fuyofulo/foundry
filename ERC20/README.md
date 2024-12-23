@@ -1,39 +1,30 @@
-# <h1 align="center"> Forge Template </h1>
+steps to create your own ERC20 token:
 
-**Template repository for getting started quickly with Foundry projects**
+step 1: initialize a forge project
+forge init --template https://github.com/foundry-rs/forge-template hello_template
 
-![Github Actions](https://github.com/foundry-rs/forge-template/workflows/CI/badge.svg)
+step 2: install openzepplin's erc20 implementation
+npm install @openzeppelin/contracts
 
-## Getting Started
+step 3: create a file named remappings.txt in the root folder and paste this
+@openzeppelin/contracts/=node_modules/@openzeppelin/contracts
 
-Click "Use this template" on [GitHub](https://github.com/foundry-rs/forge-template) to create a new repository with this repo as the initial state.
+step 4: write this in the Contract.sol file:
+// SPDX-License-Identifier: Unlicense
+pragma solidity ^0.8.13;
 
-Or, if your repo already exists, run:
-```sh
-forge init
-forge build
-forge test
-```
+import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-## Writing your first test
+contract SHINU is ERC20 { 
 
-All you need is to `import forge-std/Test.sol` and then inherit it from your test contract. Forge-std's Test contract comes with a pre-instatiated [cheatcodes environment](https://book.getfoundry.sh/cheatcodes/), the `vm`. It also has support for [ds-test](https://book.getfoundry.sh/reference/ds-test.html)-style logs and assertions. Finally, it supports Hardhat's [console.log](https://github.com/brockelmore/forge-std/blob/master/src/console.sol). The logging functionalities require `-vvvv`.
+    constructor () ERC20("SHINU", "SHINU") {
 
-```solidity
-pragma solidity 0.8.10;
-
-import "forge-std/Test.sol";
-
-contract ContractTest is Test {
-    function testExample() public {
-        vm.roll(100);
-        console.log(1);
-        emit log("hi");
-        assertTrue(true);
     }
+
+    function mint(address to, uint256 amount) public {
+        _mint(to, amount);
+    }
+
 }
-```
 
-## Development
-
-This project uses [Foundry](https://getfoundry.sh). See the [book](https://book.getfoundry.sh/getting-started/installation.html) for instructions on how to install and use Foundry.
+done :]
